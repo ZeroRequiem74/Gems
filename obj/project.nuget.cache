@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "E9zuiPLE8qi5Ymz8ZS1/ktIxhrm0gf2C/zob8VcrzyjjYG7BVlBWGT6AzeJ6WP37Czt3421gNqmi8DSSKt+E9w==",
+  "dgSpecHash": "/aAVdijsXYQjWVIlF7FOq2fgb4FRQEiJlgxJa6HjH39enG12Cfq3sS01cSV60Yg7nkGcnOG+zd6LJ9WtoEnyHQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\zeror\\Git\\Gems\\Gems.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\zeror\\.nuget\\packages\\raylib-cs\\4.2.0.1\\raylib-cs.4.2.0.1.nupkg.sha512",
+    "C:\\Users\\zeror\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"
+  ],
   "logs": []
 }
