@@ -1,79 +1,78 @@
 using Raylib_cs;
 using System.Numerics;
 
-abstract class Ores
-{
-    bool mined;
-    bool fell;
-    int objects;
-    
+class GameObject {
+    public Vector2 Position { get; set; } = new Vector2(0, 0);
+    public Vector2 Velocity { get; set; } = new Vector2(0, 0);
 
-}
+    virtual public void Draw() {
+        // Base game objects do not have anything to draw
+    }
 
-class Stones: Ores
-{
-    int points = -1;
-}
+    virtual public int Points() {
+        int points = 0;
+        return points;
+    }
 
-class Gems: Ores
-{
-    int points = 1;
-}
-
-class Destructable
-{
-    public int Broken(bool mined, bool fell, int objects)
-    {
-        if(mined | fell)
-        {
-            objects -= 1;
-        }
-        return objects;
+    public void Move() {
+        Vector2 NewPosition = Position;
+        NewPosition.X += Velocity.X;
+        NewPosition.Y += Velocity.Y;
+        Position = NewPosition;
     }
 }
 
-class Creation
-{
-    public int NumberOfOres(int objects)
-    {
-        if (objects < 30)
-        {
-            objects += 1;
-        }
-        return objects;
+class ColoredObject: GameObject {
+    public Color Color { get; set; }
+
+    public ColoredObject(Color color) {
+        Color = color;
     }
 }
 
-class Points
-{
-    public bool AddPoints(bool mined, bool fell)
-    {
-        bool add = false;
+class Gem: ColoredObject {
+    public int Size { get; set; }
 
-        if(mined)
-        {
-            add = true;
-        }
-        else if(fell)
-        {
-            add = false;
-        }
-        else
-        {
-            add = false;
-        }
+    public Gem(Color color, int size): base(color) {
+        Size = size;
+    }
 
-        return add;
+    override public void Draw() {
+        Raylib.DrawRectangle((int)Position.X, (int)Position.Y, Size, Size, Color);
     }
 }
 
-class Movement
-{
-    int MovementSpeed = 10;
+class GemPoints: Gem {
+    override public int Points() {
+        int points = 1;
+        return points;
+    }
 }
 
-class Miner
-{
-    int PlayerMovement = 15;
+
+class Stone: ColoredObject {
+
+    public int Radius { get; set; }
+
+    public Stone(Color color, int radius): base(color) {
+        Radius = radius;
+    }
+    override public void Draw() {
+        Raylib.DrawCircle((int)Position.X, (int)Position.Y, Radius, Color);
+    }
+}
+
+class StonePoints: Stone {
+    override public int Points() {
+        int points = -1;
+        return points;
+    }
+}
+
+class Player {
+
+}
+
+class Score {
 
 }
