@@ -14,7 +14,7 @@ class GameObject {
         return points;
     }
 
-    public void Move() {
+    virtual public void Move() {
         Vector2 NewPosition = Position;
         NewPosition.X += Velocity.X;
         NewPosition.Y += Velocity.Y;
@@ -30,7 +30,14 @@ class ColoredObject: GameObject {
     }
 }
 
-class Gem: ColoredObject {
+class GemPoints: ColoredObject {
+    override public int Points() {
+        int points = 1;
+        return points;
+    }
+}
+
+class Gem: GemPoints {
     public int Size { get; set; }
 
     public Gem(Color color, int size): base(color) {
@@ -42,15 +49,14 @@ class Gem: ColoredObject {
     }
 }
 
-class GemPoints: Gem {
+class StonePoints: ColoredObject {
     override public int Points() {
-        int points = 1;
+        int points = -1;
         return points;
     }
 }
 
-
-class Stone: ColoredObject {
+class Stone: StonePoints {
 
     public int Radius { get; set; }
 
@@ -62,17 +68,48 @@ class Stone: ColoredObject {
     }
 }
 
-class StonePoints: Stone {
-    override public int Points() {
-        int points = -1;
-        return points;
+class Player: GameObject {
+
+    Texture2D texture;
+
+    public Player() {
+        
+        var image = Raylib.LoadImage("link.png");
+        this.texture = Raylib.LoadTextureFromImage(image);
+        Raylib.UnloadImage(image);
+    }
+
+    public Rectangle Rect() {
+        return new Rectangle(Position.X, Position.Y, 400, 470);
+    }
+
+    public override void Move()
+    {
+        // Reset the velocity every frame unless keys are being pressed
+        var velocity = new Vector2();
+        var movementSpeed = 10;
+
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT)) {
+            velocity.X = movementSpeed;
+        }
+
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT)) {
+            velocity.X = -movementSpeed;
+        }
+
+        Velocity = velocity;
+
+        base.Move();
+    }
+
+    public override void Draw() {
+        Raylib.DrawTexture(this.texture, (int)Position.X, (int)Position.Y, Color.WHITE);
     }
 }
 
-class Player {
-
-}
-
-class Score {
-
+class Points{
+    public int PlayerPoints(int points, int addPoints){
+        points += addPoints;
+        return points;
+    }
 }

@@ -1,0 +1,5 @@
+C:\Users\zeror\Git\Gems\obj\Debug\net6.0\Gems.csproj.AssemblyReference.cache
+C:\Users\zeror\Git\Gems\obj\Debug\net6.0\Gems.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\zeror\Git\Gems\obj\Debug\net6.0\Gems.AssemblyInfoInputs.cache
+C:\Users\zeror\Git\Gems\obj\Debug\net6.0\Gems.AssemblyInfo.cs
+C:\Users\zeror\Git\Gems\obj\Debug\net6.0\Gems.csproj.CoreCompileInputs.cache

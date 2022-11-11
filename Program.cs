@@ -12,13 +12,19 @@ namespace HelloWorld
             var ScreenWidth = 800;
             var Objects = new List<GameObject>();
             var Random = new Random();
+            var Player = new Player();
+            var Title = new Points("Link! Grab all the Rupees and avoid the rocks! -Zelda", Color.WHITE);
+            var CountOfEachShape = 0;
+            int points = 10;
+            int addPoints = 0;
+
 
             Raylib.InitWindow(ScreenWidth, ScreenHeight, "GameObject");
             Raylib.SetTargetFPS(60);
 
             while (!Raylib.WindowShouldClose())
             {
-                if (Objects.length < 30){
+                if (CountOfEachShape < 30){
                     // Add a new random object to the screen every iteration of our game loop
                     var whichType = Random.Next(2);
 
@@ -47,6 +53,7 @@ namespace HelloWorld
                         default:
                             break;
                     }
+                    CountOfEachShape += 1;
                 }
 
                 Raylib.BeginDrawing();
@@ -60,24 +67,28 @@ namespace HelloWorld
                 Raylib.EndDrawing();
 
                 // Move all of the objects to their next location
+                
                 foreach (var obj in Objects) {
-                    obj.Move();
-                }
-
-                if (Raylib.CheckCollisionRecs(PlayerRectangle, square)) {
-                    async;
-                }
-                if (Raylib.CheckCollisionCircles(PlayerRectangle, circle)) {
-                    async;
-                }
-                foreach (var obj in Objects) {
-                    if (square){
-
-                    }
-                    if (circle){
-                        
+                if (obj is Gem) {
+                    var shape = (Gem)obj;
+                    if (Raylib.CheckCollisionRecs(Player.Rect(), shape.Rect())) {
+                        addPoints = StonePoints.AddPoints();
+                        points = Points.PlayerPoints(points, addPoints);
+                        var message = $"Current Points:{points}";
+                        Raylib.DrawText(message, 100, 100, 20, Color.WHITE);
                     }
                 }
+                if (obj is Stone) {
+                    var shape = (Stone)obj;
+                    if (Raylib.CheckCollisionRecs(Player.Rect(), shape.Rect())) {
+                        addPoints = StonePoints.AddPoints();
+                        points = Points.PlayerPoints(points, addPoints);
+                        var message = $"Current Points:{points}";
+                        Raylib.DrawText(message, 100, 100, 20, Color.WHITE);
+                    }
+                }
+
+            }
             }
 
             Raylib.CloseWindow();
