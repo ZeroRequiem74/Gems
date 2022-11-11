@@ -9,11 +9,6 @@ class GameObject {
         // Base game objects do not have anything to draw
     }
 
-    virtual public int Points() {
-        int points = 0;
-        return points;
-    }
-
     virtual public void Move() {
         Vector2 NewPosition = Position;
         NewPosition.X += Velocity.X;
@@ -30,18 +25,17 @@ class ColoredObject: GameObject {
     }
 }
 
-class GemPoints: ColoredObject {
-    override public int Points() {
-        int points = 1;
-        return points;
-    }
-}
+class Gem: ColoredObject {
 
-class Gem: GemPoints {
+    
     public int Size { get; set; }
 
     public Gem(Color color, int size): base(color) {
         Size = size;
+    }
+
+    public Rectangle Rect() {
+        return new Rectangle(Position.X, Position.Y, Size, Size);
     }
 
     override public void Draw() {
@@ -49,22 +43,36 @@ class Gem: GemPoints {
     }
 }
 
-class StonePoints: ColoredObject {
-    override public int Points() {
-        int points = -1;
-        return points;
+class GemPoints{
+    static public int AddPoints() {
+        int Addpoints = 1;
+        return Addpoints;
     }
 }
 
-class Stone: StonePoints {
 
+class Stone: ColoredObject {
+
+    
     public int Radius { get; set; }
 
     public Stone(Color color, int radius): base(color) {
         Radius = radius;
     }
+
+    public Rectangle Rect() {
+        return new Rectangle(Position.X, Position.Y, Radius, Radius);
+    }
+
     override public void Draw() {
         Raylib.DrawCircle((int)Position.X, (int)Position.Y, Radius, Color);
+    }
+}
+
+class StonePoints{
+    static public int AddPoints() {
+        int Addpoints = -1;
+        return Addpoints;
     }
 }
 
@@ -80,7 +88,7 @@ class Player: GameObject {
     }
 
     public Rectangle Rect() {
-        return new Rectangle(Position.X, Position.Y, 400, 470);
+        return new Rectangle(Position.X, Position.Y, 50, 53);
     }
 
     public override void Move()
@@ -107,9 +115,21 @@ class Player: GameObject {
     }
 }
 
-class Points{
-    public int PlayerPoints(int points, int addPoints){
+class Points: ColoredObject{
+
+    string Text;
+
+    public Points(string text, Color color): base(color) {
+        Text = text;
+    }
+
+    public override void Draw() {
+        Raylib.DrawText(this.Text, (int)Position.X, (int)Position.Y, 20, this.Color);
+    }
+    static public int PlayerPoints(int points, int addPoints){
         points += addPoints;
         return points;
     }
+
+
 }
