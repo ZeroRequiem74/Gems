@@ -78,10 +78,8 @@ namespace HelloWorld
                 if (obj is Gem) {
                     var shape = (Gem)obj;
                     if (Raylib.CheckCollisionRecs(Player.Rect(), shape.Rect())) {
-                        addPoints = StonePoints.AddPoints();
+                        addPoints = GemPoints.AddPoints();
                         points = Points.PlayerPoints(points, addPoints);
-                        var message = $"Current Points:{points}";
-                        Raylib.DrawText(message, 100, 100, 20, Color.BLACK);
                         Objects.Remove(obj);
                         CountOfEachShape -= 1;
                     }
@@ -91,8 +89,6 @@ namespace HelloWorld
                     if (Raylib.CheckCollisionRecs(Player.Rect(), shape.Rect())) {
                         addPoints = StonePoints.AddPoints();
                         points = Points.PlayerPoints(points, addPoints);
-                        var message = $"Current Points:{points}";
-                        Raylib.DrawText(message, 100, 100, 20, Color.BLACK);
                         Objects.Remove(obj);
                         CountOfEachShape -= 1;
                     }
@@ -101,11 +97,10 @@ namespace HelloWorld
                     Objects.Remove(obj);
                     CountOfEachShape -= 1;
                 }
-
-                
-
-
             }
+            var message = $"Current Points:{points}";
+            Raylib.DrawText(message, 0, 30, 20, Color.BLACK);
+
             Raylib.EndDrawing();
 
                 Player.Move();
